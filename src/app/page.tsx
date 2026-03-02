@@ -41,19 +41,17 @@ export default function Home() {
       ...prev,
       [field]: Number(cagr.toFixed(2)),
     }));
-    if (years === 4) {
-      return Number(cagr.toFixed(2));
-    }
+    return Number(cagr.toFixed(2));
   };
 
-  const calculatePEG = (data: any, cagr: number) => {
-    const historicalPEG = (Number(data?.PERatio) / cagr).toFixed(2);
+  const calculatePEG = (data: any, fiveYearsCarg: number, lastYearValue: number) => {
+    const historicalPEG = (Number(data?.PERatio) / fiveYearsCarg).toFixed(2);
     setReport((prev) => ({
       ...prev,
       historicalPEG: Number(historicalPEG),
       PER: Number(data?.PERatio),
       lastYearPEG: Number(
-        (Number(data?.PERatio) / Number(data?.PEGRatio)).toFixed(2),
+        (Number(data?.PERatio) / Number(lastYearValue)).toFixed(2),
       ),
       fowardPEG: Number(data?.PEGRatio),
     }));
@@ -97,17 +95,17 @@ export default function Home() {
     setError(!Object.keys(historicalData).length);
 
     if (Object.keys(historicalData).length) {
-      const carg = calculateCAGR(
+      const fiveYearsCarg = calculateCAGR(
         historicalData.annualEarnings.slice(0, 5),
         4,
         'fiveYearsValue',
       );
-      calculateCAGR(
+      const lastYearCarg = calculateCAGR(
         historicalData.quarterlyEarnings.slice(0, 5),
         1,
         'lastYearValue',
       );
-      calculatePEG(companyInfo, carg || 1);
+      calculatePEG(companyInfo, fiveYearsCarg || 1, lastYearCarg || 1);
     }
   };
 
