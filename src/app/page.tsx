@@ -52,10 +52,15 @@ export default function Home() {
       ...prev,
       historicalPEG: Number(historicalPEG),
       PER: Number(data?.PERatio),
-      lastYearPEG: Number((Number(data?.PERatio) / Number(data?.PEGRatio)).toFixed(2)),
-      fowardPEG: Number(data?.PEGRatio)
+      lastYearPEG: Number(
+        (Number(data?.PERatio) / Number(data?.PEGRatio)).toFixed(2),
+      ),
+      fowardPEG: Number(data?.PEGRatio),
     }));
   };
+
+  const sleep = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   const _makeFetchCall = async () => {
     setIsLoading(true);
@@ -64,6 +69,7 @@ export default function Home() {
       const url2 = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${simbol}&apikey=${process.env.NEXT_PUBLIC_API_KEY}`;
 
       const response1 = await fetch(url1);
+      await sleep(2500);
       const response2 = await fetch(url2);
       setIsLoading(false);
 
