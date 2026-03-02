@@ -33,7 +33,7 @@ export default function Home() {
 
   const _makeFetchCall = async () => {
     setIsLoading(true);
-    if (process.env.ENVIROMENT === 'prod') {
+    if (process.env.NEXT_PUBLIC_ENVIROMENT === 'prod') {
       const url = `https://www.alphavantage.co/query?function=EARNINGS&symbol=${simbol}&apikey=${process.env.NEXT_PUBLIC_API_KEY}`;
       const response = await fetch(url);
       setIsLoading(false);
