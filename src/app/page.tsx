@@ -7,9 +7,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { use, useState } from 'react';
-import { COMPANY_DATA } from './interface';
+import { useState } from 'react';
+import {
+  ANNUAL_EARNINGS,
+  COMPANY_DATA,
+  QUEARTERLY_EARNINGS,
+} from './interface';
 import { COMPANY_INFO, DATA } from './constant';
+import CustomTable from './components/CustomTable';
 
 type ReportProps = {
   fiveYearsValue: number;
@@ -32,6 +37,10 @@ export default function Home() {
     lastYearPEG: 0,
     PER: 0,
   });
+  const [annualEarnings, setAnnualEarnings] = useState<ANNUAL_EARNINGS[]>([]);
+  const [quarterlyEarnings, setQuarterlyEarnings] = useState<
+    QUEARTERLY_EARNINGS[]
+  >([]);
 
   const calculateCAGR = (data: any, years: number, field: any) => {
     const ratio = data[0].reportedEPS / data[data.length - 1].reportedEPS;
@@ -44,7 +53,11 @@ export default function Home() {
     return Number(cagr.toFixed(2));
   };
 
-  const calculatePEG = (data: any, fiveYearsCarg: number, lastYearValue: number) => {
+  const calculatePEG = (
+    data: any,
+    fiveYearsCarg: number,
+    lastYearValue: number,
+  ) => {
     const historicalPEG = (Number(data?.PERatio) / fiveYearsCarg).toFixed(2);
     setReport((prev) => ({
       ...prev,
@@ -67,7 +80,7 @@ export default function Home() {
       const url2 = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${simbol}&apikey=${process.env.NEXT_PUBLIC_API_KEY}`;
 
       const response1 = await fetch(url1);
-      await sleep(2500);
+      await sleep(1600);
       const response2 = await fetch(url2);
       setIsLoading(false);
 
@@ -95,11 +108,13 @@ export default function Home() {
     setError(!Object.keys(historicalData).length);
 
     if (Object.keys(historicalData).length) {
+      setAnnualEarnings(historicalData.annualEarnings.slice(0, 5));
       const fiveYearsCarg = calculateCAGR(
         historicalData.annualEarnings.slice(0, 5),
         4,
         'fiveYearsValue',
       );
+      setQuarterlyEarnings(historicalData.quarterlyEarnings.slice(0, 5));
       const lastYearCarg = calculateCAGR(
         historicalData.quarterlyEarnings.slice(0, 5),
         1,
@@ -115,7 +130,7 @@ export default function Home() {
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          marginTop: '5rem',
+          marginTop: '2rem',
           marginBottom: '1rem',
           gap: 3,
         }}
@@ -196,6 +211,11 @@ export default function Home() {
                 </Typography>
               </li>
             </ul>
+            <br />
+            <CustomTable
+              annualEarnings={annualEarnings}
+              quarterlyEarnings={quarterlyEarnings}
+            />
           </Box>
         )}
       </Container>
