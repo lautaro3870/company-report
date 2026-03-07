@@ -5,25 +5,17 @@ import {
   CircularProgress,
   Container,
   TextField,
-  Typography,
 } from '@mui/material';
 import { useState } from 'react';
 import {
   ANNUAL_EARNINGS,
   COMPANY_DATA,
   QUEARTERLY_EARNINGS,
+  ReportProps,
 } from './interface';
 import { COMPANY_INFO, DATA } from './constant';
 import CustomTable from './components/CustomTable';
-
-type ReportProps = {
-  fiveYearsValue: number;
-  lastYearValue: number;
-  historicalPEG: number;
-  lastYearPEG: number;
-  fowardPEG: number;
-  PER: number;
-};
+import CustomList from './components/CustomList';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -173,44 +165,7 @@ export default function Home() {
               },
             }}
           >
-            <ul
-              style={{
-                listStyle: 'none',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 20,
-              }}
-            >
-              <li>
-                <Typography variant="h5">
-                  BPA compuesto últimos 5 años (4 periodos):{' '}
-                  {report.fiveYearsValue}%
-                </Typography>
-              </li>
-              <li>
-                <Typography variant="h5">
-                  Incremento BPA del último año: {report.lastYearValue}%
-                </Typography>
-              </li>
-              <li>
-                <Typography variant="h5">PER: {report.PER}</Typography>
-              </li>
-              <li>
-                <Typography variant="h5">
-                  PEG histórico: {report.historicalPEG}
-                </Typography>
-              </li>
-              <li>
-                <Typography variant="h5">
-                  PEG último año: {report.lastYearPEG}
-                </Typography>
-              </li>
-              <li>
-                <Typography variant="h5">
-                  PEG futuro: {report.fowardPEG}
-                </Typography>
-              </li>
-            </ul>
+            <CustomList report={report} />
             <br />
             <CustomTable
               annualEarnings={annualEarnings}

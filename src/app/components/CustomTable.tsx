@@ -72,8 +72,8 @@ export default function CustomTable({
 }: CustomTableProps) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
-      <EarningsTable data={quarterlyEarnings} label="Mes" />
       <EarningsTable data={annualEarnings} label="Año" />
+      <EarningsTable data={quarterlyEarnings} label="Mes" />
     </Box>
   );
 }

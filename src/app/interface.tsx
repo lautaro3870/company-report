@@ -18,3 +18,12 @@ export type QUEARTERLY_EARNINGS = {
   surprise: string;
   surprisePercentage: string;
 };
+
+export type ReportProps = {
+  fiveYearsValue: number;
+  lastYearValue: number;
+  historicalPEG: number;
+  lastYearPEG: number;
+  fowardPEG: number;
+  PER: number;
+};
