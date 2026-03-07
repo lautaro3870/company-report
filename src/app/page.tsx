@@ -160,19 +160,14 @@ export default function Home() {
             <CircularProgress />
           </Box>
         ) : (
-          <Box
-            sx={{
-              marginLeft: {
-                lg: '5rem',
-              },
-            }}
-          >
+          <Box>
             <CustomList report={report} />
             <br />
             <CustomTable
               annualEarnings={annualEarnings}
               quarterlyEarnings={quarterlyEarnings}
             />
+            <br />
           </Box>
         )}
       </Container>

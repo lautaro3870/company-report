@@ -6,7 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { ANNUAL_EARNINGS, QUEARTERLY_EARNINGS } from '../interface';
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 // Tabla genérica reutilizable
 type EarningsRow = {
@@ -71,9 +71,25 @@ export default function CustomTable({
   quarterlyEarnings,
 }: CustomTableProps) {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
-      <EarningsTable data={annualEarnings} label="Año" />
-      <EarningsTable data={quarterlyEarnings} label="Mes" />
-    </Box>
+    <Grid container spacing={{ xs: 2 }}>
+      <Grid
+        size={{
+          xl: 6,
+          lg: 6,
+          xs: 12,
+        }}
+      >
+        <EarningsTable data={annualEarnings} label="Año" />
+      </Grid>
+      <Grid
+        size={{
+          xl: 6,
+          lg: 6,
+          xs: 12,
+        }}
+      >
+        <EarningsTable data={quarterlyEarnings} label="Mes" />
+      </Grid>
+    </Grid>
   );
 }
