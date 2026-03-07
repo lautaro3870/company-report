@@ -28,6 +28,7 @@ export default function Home() {
     historicalPEG: 0,
     lastYearPEG: 0,
     PER: 0,
+    Beta: 0,
   });
   const [annualEarnings, setAnnualEarnings] = useState<ANNUAL_EARNINGS[]>([]);
   const [quarterlyEarnings, setQuarterlyEarnings] = useState<
@@ -59,6 +60,7 @@ export default function Home() {
         (Number(data?.PERatio) / Number(lastYearValue)).toFixed(2),
       ),
       fowardPEG: Number(data?.PEGRatio),
+      Beta: Number(data?.Beta),
     }));
   };
 

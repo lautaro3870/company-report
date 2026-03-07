@@ -26,4 +26,5 @@ export type ReportProps = {
   lastYearPEG: number;
   fowardPEG: number;
   PER: number;
+  Beta: number;
 };

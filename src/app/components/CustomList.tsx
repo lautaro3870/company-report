@@ -6,6 +6,18 @@ type CustomListPrps = {
 };
 
 export default function CustomList({ report }: CustomListPrps) {
+
+  const _getMultiplier = () => {
+    const multipliers: Record<string, string> = {
+      '0': '0',
+      'low': '2.75',
+      'high': '3.25',
+    };
+
+    if (report.Beta === 0) return multipliers['0'];
+    return report.Beta <= 1.95 ? multipliers['low'] : multipliers['high'];
+  };
+
   return (
     <ul
       style={{
@@ -40,6 +52,12 @@ export default function CustomList({ report }: CustomListPrps) {
       </li>
       <li>
         <Typography variant="h5">PEG futuro: {report.fowardPEG}</Typography>
+      </li>
+      <li>
+        <Typography variant="h5">BETA: {report.Beta}</Typography>
+      </li>
+      <li>
+        <Typography variant="h5">Multiplicador: {_getMultiplier()}</Typography>
       </li>
     </ul>
   );
