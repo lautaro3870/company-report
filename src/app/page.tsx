@@ -19,6 +19,7 @@ import { COMPANY_INFO, DATA } from './constant';
 import CustomTable from './components/CustomTable';
 import CustomList from './components/CustomList';
 import ClearIcon from '@mui/icons-material/Clear';
+import Swal from 'sweetalert2';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -79,12 +80,17 @@ export default function Home() {
       const url2 = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${simbol}&apikey=${process.env.NEXT_PUBLIC_API_KEY}`;
 
       const response1 = await fetch(url1);
+      const data1 = await response1.json();
+
+      if (data1?.Information) {
+        Swal.fire('Se alcanzó el limite de peticiones por día. Esperar hasta mañana');
+      }
       await sleep(1600);
       const response2 = await fetch(url2);
       setIsLoading(false);
 
       return {
-        historicalData: (await response1.json()) as COMPANY_DATA,
+        historicalData: data1 as COMPANY_DATA,
         companyInfo: await response2.json(),
       };
     } else {
