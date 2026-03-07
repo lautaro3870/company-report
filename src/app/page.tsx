@@ -4,6 +4,8 @@ import {
   Button,
   CircularProgress,
   Container,
+  IconButton,
+  InputAdornment,
   TextField,
 } from '@mui/material';
 import { useState } from 'react';
@@ -16,6 +18,7 @@ import {
 import { COMPANY_INFO, DATA } from './constant';
 import CustomTable from './components/CustomTable';
 import CustomList from './components/CustomList';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +32,7 @@ export default function Home() {
     lastYearPEG: 0,
     PER: 0,
     Beta: 0,
+    Description: '',
   });
   const [annualEarnings, setAnnualEarnings] = useState<ANNUAL_EARNINGS[]>([]);
   const [quarterlyEarnings, setQuarterlyEarnings] = useState<
@@ -61,6 +65,7 @@ export default function Home() {
       ),
       fowardPEG: Number(data?.PEGRatio),
       Beta: Number(data?.Beta),
+      Description: data?.Description,
     }));
   };
 
@@ -139,6 +144,17 @@ export default function Home() {
             setSimbol(e.target.value.toUpperCase());
           }}
           label={error ? 'Simbolo incorrecto' : ''}
+          slotProps={{
+            input: {
+              endAdornment: simbol && (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setSimbol('')} edge="end">
+                    <ClearIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
         />{' '}
         <Button variant="contained" onClick={getCompanyReport}>
           Buscar

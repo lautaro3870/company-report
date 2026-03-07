@@ -6,12 +6,11 @@ type CustomListPrps = {
 };
 
 export default function CustomList({ report }: CustomListPrps) {
-
   const _getMultiplier = () => {
     const multipliers: Record<string, string> = {
       '0': '0',
-      'low': '2.75',
-      'high': '3.25',
+      low: '2.75',
+      high: '3.25',
     };
 
     if (report.Beta === 0) return multipliers['0'];
@@ -19,46 +18,34 @@ export default function CustomList({ report }: CustomListPrps) {
   };
 
   return (
-    <ul
-      style={{
-        listStyle: 'none',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 20,
-      }}
-    >
-      <li>
+    <div>
+      <Typography variant="body1">{report.Description}</Typography>
+      <br />
+      <div
+        style={{
+          listStyle: 'none',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 20,
+        }}
+      >
         <Typography variant="h5">
           BPA compuesto últimos 5 años (4 periodos): {report.fiveYearsValue}%
         </Typography>
-      </li>
-      <li>
         <Typography variant="h5">
           Incremento BPA del último año: {report.lastYearValue}%
         </Typography>
-      </li>
-      <li>
         <Typography variant="h5">PER: {report.PER}</Typography>
-      </li>
-      <li>
         <Typography variant="h5">
           PEG histórico: {report.historicalPEG}
         </Typography>
-      </li>
-      <li>
         <Typography variant="h5">
           PEG último año: {report.lastYearPEG}
         </Typography>
-      </li>
-      <li>
         <Typography variant="h5">PEG futuro: {report.fowardPEG}</Typography>
-      </li>
-      <li>
         <Typography variant="h5">BETA: {report.Beta}</Typography>
-      </li>
-      <li>
         <Typography variant="h5">Multiplicador: {_getMultiplier()}</Typography>
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 }
