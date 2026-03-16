@@ -83,7 +83,9 @@ export default function Home() {
       const data1 = await response1.json();
 
       if (data1?.Information) {
-        Swal.fire('Se alcanzó el limite de peticiones por día. Esperar hasta mañana');
+        Swal.fire(
+          'Se alcanzó el limite de peticiones por día. Esperar hasta mañana',
+        );
       }
       await sleep(1600);
       const response2 = await fetch(url2);
@@ -141,6 +143,7 @@ export default function Home() {
         }}
       >
         <TextField
+          id="simbol"
           variant="outlined"
           placeholder="Simbolo"
           error={error}
@@ -154,7 +157,13 @@ export default function Home() {
             input: {
               endAdornment: simbol && (
                 <InputAdornment position="end">
-                  <IconButton onClick={() => setSimbol('')} edge="end">
+                  <IconButton
+                    onClick={() => {
+                      setSimbol('');
+                      document.getElementById('simbol')?.focus();
+                    }}
+                    edge="end"
+                  >
                     <ClearIcon />
                   </IconButton>
                 </InputAdornment>
