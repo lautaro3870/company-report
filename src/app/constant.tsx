@@ -2,6 +2,10 @@ export const DATA = {
   symbol: 'GOOGL',
   annualEarnings: [
     {
+      fiscalDateEnding: '2026-04-25',
+      reportedEPS: '5.06',
+    },
+    {
       fiscalDateEnding: '2025-12-31',
       reportedEPS: '10.81',
     },

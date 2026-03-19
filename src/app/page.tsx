@@ -112,12 +112,17 @@ export default function Home() {
 
     const { companyInfo, historicalData } = await _makeFetchCall();
 
-    setError(!Object.keys(historicalData).length);
+    const filteredHistoricalData = historicalData.annualEarnings.filter(
+      (data: ANNUAL_EARNINGS) =>
+        !data.fiscalDateEnding.includes(new Date().getFullYear().toString()),
+    );
 
-    if (Object.keys(historicalData).length) {
-      setAnnualEarnings(historicalData.annualEarnings.slice(0, 5));
+    setError(!Object.keys(filteredHistoricalData).length);
+
+    if (Object.keys(filteredHistoricalData).length) {
+      setAnnualEarnings(filteredHistoricalData.slice(0, 5));
       const fiveYearsCarg = calculateCAGR(
-        historicalData.annualEarnings.slice(0, 5),
+        filteredHistoricalData.slice(0, 5),
         4,
         'fiveYearsValue',
       );
