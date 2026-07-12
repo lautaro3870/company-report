@@ -175,6 +175,9 @@ export default function Home() {
               ),
             },
           }}
+          onKeyUp={(e) => {
+            if (e.key === 'Enter') getCompanyReport();
+          }}
         />{' '}
         <Button variant="contained" onClick={getCompanyReport}>
           Buscar
