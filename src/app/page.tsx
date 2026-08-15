@@ -34,6 +34,8 @@ export default function Home() {
     PER: 0,
     Beta: 0,
     Description: '',
+    QuarterlyRevenueGrowthYOY: 0,
+    GrossMargin: '',
   });
   const [annualEarnings, setAnnualEarnings] = useState<ANNUAL_EARNINGS[]>([]);
   const [quarterlyEarnings, setQuarterlyEarnings] = useState<
@@ -67,6 +69,8 @@ export default function Home() {
       fowardPEG: Number(data?.PEGRatio),
       Beta: Number(data?.Beta),
       Description: data?.Description,
+      QuarterlyRevenueGrowthYOY: data?.QuarterlyRevenueGrowthYOY * 100,
+      GrossMargin: ((data?.GrossProfitTTM / data?.RevenueTTM) * 100).toFixed(2),
     }));
   };
 

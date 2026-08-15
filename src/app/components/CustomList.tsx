@@ -43,6 +43,8 @@ export default function CustomList({ report }: CustomListPrps) {
           PEG último año: {report.lastYearPEG}
         </Typography>
         <Typography variant="h5">PEG futuro: {report.fowardPEG}</Typography>
+        <Typography variant="h5">Crecimiento de los ingresos: {report.QuarterlyRevenueGrowthYOY}%</Typography>
+        <Typography variant="h5">Margin bruto: {report.GrossMargin}%</Typography>
         <Typography variant="h5">BETA: {report.Beta}</Typography>
         <Typography variant="h5">Multiplicador: {_getMultiplier()}</Typography>
       </div>
