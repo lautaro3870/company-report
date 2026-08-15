@@ -157,6 +157,9 @@ export default function Home() {
             setError(false);
             setSimbol(e.target.value.toUpperCase());
           }}
+          onClick={(e: any) => {
+            if (e.target?.type) e?.target?.select()
+          }}
           label={error ? 'Simbolo incorrecto' : ''}
           slotProps={{
             input: {
