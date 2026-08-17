@@ -28,6 +28,6 @@ export type ReportProps = {
   PER: number;
   Beta: number;
   Description: string;
-  QuarterlyRevenueGrowthYOY: number;
+  QuarterlyRevenueGrowthYOY: string;
   GrossMargin: string;
 };
