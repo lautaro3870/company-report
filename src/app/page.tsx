@@ -11,6 +11,7 @@ import {
 import { useState } from 'react';
 import {
   ANNUAL_EARNINGS,
+  COLUMNS,
   COMPANY_DATA,
   QUEARTERLY_EARNINGS,
   ReportProps,
@@ -36,6 +37,7 @@ export default function Home() {
     Description: '',
     QuarterlyRevenueGrowthYOY: '',
     GrossMargin: '',
+    Symbol: '',
   });
   const [annualEarnings, setAnnualEarnings] = useState<ANNUAL_EARNINGS[]>([]);
   const [quarterlyEarnings, setQuarterlyEarnings] = useState<
@@ -69,8 +71,11 @@ export default function Home() {
       fowardPEG: Number(data?.PEGRatio),
       Beta: Number(data?.Beta),
       Description: data?.Description,
-      QuarterlyRevenueGrowthYOY: (data?.QuarterlyRevenueGrowthYOY * 100).toFixed(2),
+      QuarterlyRevenueGrowthYOY: (
+        data?.QuarterlyRevenueGrowthYOY * 100
+      ).toFixed(2),
       GrossMargin: ((data?.GrossProfitTTM / data?.RevenueTTM) * 100).toFixed(2),
+      Symbol: data?.Symbol,
     }));
   };
 
@@ -140,6 +145,42 @@ export default function Home() {
     }
   };
 
+  const formatValue = (value: number | string): string => {
+    if (typeof value === 'number') {
+      return value.toString();
+    }
+    return value ?? '';
+  };
+
+  const copyReportsForExcel = async (reports: ReportProps[]) => {
+    if (reports.length === 0) return;
+
+    const dataRows = reports.map((report) =>
+      COLUMNS.map((col) => formatValue(report[col.key])).join('\t'),
+    );
+
+    const tsv = dataRows.join('\n');
+
+    try {
+      await navigator.clipboard.writeText(tsv);
+      console.log('Copiado al portapapeles');
+    } catch (err) {
+      console.warn('Clipboard API falló, usando fallback:', err);
+      const textarea = document.createElement('textarea');
+      textarea.value = tsv;
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try {
+        document.execCommand('copy');
+      } finally {
+        document.body.removeChild(textarea);
+      }
+    }
+  };
+
   return (
     <div>
       <Container
@@ -162,7 +203,7 @@ export default function Home() {
             setSimbol(e.target.value.toUpperCase());
           }}
           onClick={(e: any) => {
-            if (e.target?.type) e?.target?.select()
+            if (e.target?.type) e?.target?.select();
           }}
           label={error ? 'Simbolo incorrecto' : ''}
           slotProps={{
@@ -188,6 +229,13 @@ export default function Home() {
         />{' '}
         <Button variant="contained" onClick={getCompanyReport}>
           Buscar
+        </Button>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: '#139901' }}
+          onClick={() => copyReportsForExcel([report])}
+        >
+          Copiar
         </Button>
       </Container>
       <Container>
