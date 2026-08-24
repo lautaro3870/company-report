@@ -40,7 +40,6 @@ export const COLUMNS: { key: keyof ReportProps; label: string }[] = [
   { key: 'historicalPEG', label: 'Historical PEG' },
   { key: 'lastYearPEG', label: 'Last Year PEG' },
   { key: 'fowardPEG', label: 'Forward PEG' },
-  { key: 'PER', label: 'PER' },
   { key: 'Beta', label: 'Beta' },
   { key: 'QuarterlyRevenueGrowthYOY', label: 'Rev Growth YOY' },
   { key: 'GrossMargin', label: 'Gross Margin' },
