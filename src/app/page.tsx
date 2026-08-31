@@ -84,7 +84,7 @@ export default function Home() {
 
   const _makeFetchCall = async () => {
     setIsLoading(true);
-    if (process.env.NEXT_PUBLIC_ENVIROMENT === 'prod') {
+    if (true) {
       const url1 = `https://www.alphavantage.co/query?function=EARNINGS&symbol=${simbol}&apikey=${process.env.NEXT_PUBLIC_API_KEY}`;
       const url2 = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${simbol}&apikey=${process.env.NEXT_PUBLIC_API_KEY}`;
 
@@ -129,10 +129,10 @@ export default function Home() {
     setError(!Object.keys(filteredHistoricalData).length);
 
     if (Object.keys(filteredHistoricalData).length) {
-      setAnnualEarnings(filteredHistoricalData.slice(0, 5));
+      setAnnualEarnings(filteredHistoricalData.slice(0, 6));
       const fiveYearsCarg = calculateCAGR(
-        filteredHistoricalData.slice(0, 5),
-        4,
+        filteredHistoricalData.slice(0, 6),
+        5,
         'fiveYearsValue',
       );
       setQuarterlyEarnings(historicalData.quarterlyEarnings.slice(0, 5));

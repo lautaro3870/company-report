@@ -30,7 +30,7 @@ export default function CustomList({ report }: CustomListPrps) {
         }}
       >
         <Typography variant="h5">
-          BPA compuesto últimos 5 años (4 periodos): {report.fiveYearsValue}%
+          BPA compuesto últimos 5 años: {report.fiveYearsValue}%
         </Typography>
         <Typography variant="h5">
           Incremento BPA del último año: {report.lastYearValue}%
