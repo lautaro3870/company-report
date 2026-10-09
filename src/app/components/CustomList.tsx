@@ -19,7 +19,6 @@ export default function CustomList({ report }: CustomListPrps) {
 
   return (
     <div>
-      <Typography variant="body1">{report.Description}</Typography>
       <br />
       <div
         style={{

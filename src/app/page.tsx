@@ -34,7 +34,6 @@ export default function Home() {
     lastYearPEG: 0,
     PER: 0,
     Beta: 0,
-    Description: '',
     QuarterlyRevenueGrowthYOY: '',
     GrossMargin: '',
     Symbol: '',
@@ -60,22 +59,20 @@ export default function Home() {
     fiveYearsCarg: number,
     lastYearValue: number,
   ) => {
-    const historicalPEG = (Number(data?.PERatio) / fiveYearsCarg).toFixed(2);
+    const { metric } = data;
+    const historicalPEG = (Number(metric?.peTTM) / fiveYearsCarg).toFixed(2);
     setReport((prev) => ({
       ...prev,
       historicalPEG: Number(historicalPEG),
-      PER: Number(data?.PERatio),
+      PER: Number(metric?.peTTM),
       lastYearPEG: Number(
-        (Number(data?.PERatio) / Number(lastYearValue)).toFixed(2),
+        (Number(metric?.peTTM) / Number(lastYearValue)).toFixed(2),
       ),
-      fowardPEG: Number(data?.PEGRatio),
-      Beta: Number(data?.Beta),
-      Description: data?.Description,
-      QuarterlyRevenueGrowthYOY: (
-        data?.QuarterlyRevenueGrowthYOY * 100
-      ).toFixed(2),
-      GrossMargin: ((data?.GrossProfitTTM / data?.RevenueTTM) * 100).toFixed(2),
-      Symbol: data?.Symbol,
+      fowardPEG: Number(metric?.forwardPEG),
+      Beta: Number(metric?.beta),
+      QuarterlyRevenueGrowthYOY: metric?.revenueGrowthQuarterlyYoy.toFixed(2),
+      GrossMargin: metric?.grossMarginTTM.toFixed(2),
+      Symbol: simbol,
     }));
   };
 
@@ -86,7 +83,7 @@ export default function Home() {
     setIsLoading(true);
     if (process.env.NEXT_PUBLIC_ENVIROMENT === 'prod') {
       const url1 = `https://www.alphavantage.co/query?function=EARNINGS&symbol=${simbol}&apikey=${process.env.NEXT_PUBLIC_API_KEY}`;
-      const url2 = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${simbol}&apikey=${process.env.NEXT_PUBLIC_API_KEY}`;
+      const url2 = `https://finnhub.io/api/v1/stock/metric?symbol=AAPL&metric=all&token=${process.env.NEXT_PUBLIC_API_KEY2}`;
 
       const response1 = await fetch(url1);
       const data1 = await response1.json();
@@ -96,7 +93,6 @@ export default function Home() {
           'Se alcanzó el limite de peticiones por día. Esperar hasta mañana',
         );
       }
-      await sleep(1600);
       const response2 = await fetch(url2);
       setIsLoading(false);
 

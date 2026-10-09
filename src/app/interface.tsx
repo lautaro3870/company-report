@@ -27,7 +27,6 @@ export type ReportProps = {
   fowardPEG: number;
   PER: number;
   Beta: number;
-  Description: string;
   QuarterlyRevenueGrowthYOY: string;
   GrossMargin: string;
   Symbol: string;
