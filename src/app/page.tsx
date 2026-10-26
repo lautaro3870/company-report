@@ -150,6 +150,8 @@ export default function Home() {
 
   const copyReportsForExcel = async (reports: ReportProps[]) => {
     if (reports.length === 0) return;
+    report.PER = Number(report.PER.toFixed(0));
+    report.Beta = Number(report.Beta.toFixed(2));
 
     const dataRows = reports.map((report) =>
       COLUMNS.map((col) => formatValue(report[col.key])).join('\t'),

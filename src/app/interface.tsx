@@ -36,6 +36,7 @@ export const COLUMNS: { key: keyof ReportProps; label: string }[] = [
   { key: 'Symbol', label: 'Symbol'},
   { key: 'fiveYearsValue', label: '5Y EPS Growth' },
   { key: 'lastYearValue', label: 'Last Year EPS Growth' },
+  { key: 'PER', label: 'PER' },
   { key: 'historicalPEG', label: 'Historical PEG' },
   { key: 'lastYearPEG', label: 'Last Year PEG' },
   { key: 'fowardPEG', label: 'Forward PEG' },

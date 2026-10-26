@@ -34,7 +34,7 @@ export default function CustomList({ report }: CustomListPrps) {
         <Typography variant="h5">
           Incremento BPA del último año: {report.lastYearValue}%
         </Typography>
-        <Typography variant="h5">PER: {report.PER}</Typography>
+        <Typography variant="h5">PER: {report.PER.toFixed(0)}</Typography>
         <Typography variant="h5">
           PEG histórico: {report.historicalPEG}
         </Typography>
@@ -44,7 +44,7 @@ export default function CustomList({ report }: CustomListPrps) {
         <Typography variant="h5">PEG futuro: {report.fowardPEG}</Typography>
         <Typography variant="h5">Crecimiento de los ingresos: {report.QuarterlyRevenueGrowthYOY}%</Typography>
         <Typography variant="h5">Margin bruto: {report.GrossMargin}%</Typography>
-        <Typography variant="h5">BETA: {report.Beta}</Typography>
+        <Typography variant="h5">BETA: {report.Beta.toFixed(2)}</Typography>
         <Typography variant="h5">Multiplicador: {_getMultiplier()}</Typography>
       </div>
     </div>
