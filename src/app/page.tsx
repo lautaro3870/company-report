@@ -68,7 +68,7 @@ export default function Home() {
       lastYearPEG: Number(
         (Number(metric?.peTTM) / Number(lastYearValue)).toFixed(2),
       ),
-      fowardPEG: Number(metric?.forwardPEG),
+      fowardPEG: Number(metric?.forwardPEG) || 0,
       Beta: Number(metric?.beta),
       QuarterlyRevenueGrowthYOY: metric?.revenueGrowthQuarterlyYoy.toFixed(2),
       GrossMargin: metric?.grossMarginTTM.toFixed(2),
@@ -83,7 +83,7 @@ export default function Home() {
     setIsLoading(true);
     if (process.env.NEXT_PUBLIC_ENVIROMENT === 'prod') {
       const url1 = `https://www.alphavantage.co/query?function=EARNINGS&symbol=${simbol}&apikey=${process.env.NEXT_PUBLIC_API_KEY}`;
-      const url2 = `https://finnhub.io/api/v1/stock/metric?symbol=AAPL&metric=all&token=${process.env.NEXT_PUBLIC_API_KEY2}`;
+      const url2 = `https://finnhub.io/api/v1/stock/metric?symbol=${simbol}&metric=all&token=${process.env.NEXT_PUBLIC_API_KEY2}`;
 
       const response1 = await fetch(url1);
       const data1 = await response1.json();
