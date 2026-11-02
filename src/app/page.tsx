@@ -70,8 +70,8 @@ export default function Home() {
       ),
       fowardPEG: Number(metric?.forwardPEG) || 0,
       Beta: Number(metric?.beta),
-      QuarterlyRevenueGrowthYOY: metric?.revenueGrowthQuarterlyYoy.toFixed(2),
-      GrossMargin: metric?.grossMarginTTM.toFixed(2),
+      QuarterlyRevenueGrowthYOY: metric?.revenueGrowthQuarterlyYoy?.toFixed(2),
+      GrossMargin: metric?.grossMarginTTM?.toFixed(2),
       Symbol: simbol,
     }));
   };
